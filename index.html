@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>佳伊的小小记录 🦊</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #faf8f5;
+    --card: #ffffff;
+    --text: #3d3d3d;
+    --text-light: #8a7a6a;
+    --text-lighter: #b8a898;
+    --accent: #b8856c;
+    --accent-light: #d4b8a4;
+    --border: #f0ebe6;
+    --highlight: #f7f0eb;
+  }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 3px; }
+
+  /* ===== Desktop Layout ===== */
+  @media (min-width: 769px) {
+    .app-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      min-height: 100vh;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--border);
+      padding: 40px 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      padding: 40px 32px;
+      max-width: 680px;
+    }
+
+    .side-panel {
+      border-left: 1px solid var(--border);
+      padding: 40px 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 768px) {
+    .app-layout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      padding: 30px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .main-content {
+      padding: 20px;
+    }
+
+    .side-panel {
+      padding: 20px;
+      border-top: 1px solid var(--border);
+    }
+  }
+
+  /* ===== Sidebar ===== */
+  .site-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+  .site-sub {
+    font-size: 0.75rem;
+    color: var(--text-lighter);
+    letter-spacing: 1px;
+  }
+  .fox-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .nav-section {
+    margin-top: 32px;
+  }
+  .nav-label {
+    font-size: 0.7rem;
+    color: var(--text-lighter);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: var(--highlight); }
+  .nav-item.active {
+    background: var(--highlight);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ===== Stats ===== */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .stat-card {
+    background: var(--highlight);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .stat-card .lbl {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* ===== Card ===== */
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.02);
+    border: 1px solid var(--border);
+  }
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== Date Header ===== */
+  .date-header {
+    text-align: center;
+    padding: 10px 0 20px;
+  }
+  .date-header .day {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .date-header .weekday {
+    font-size: 0.8rem;
+    color: var(--text-lighter);
+    margin-top: 2px;
+  }
+
+  /* ===== Journal Entry ===== */
+  .journal-textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--text);
+    background: transparent;
+    padding: 4px 0;
+  }
+  .journal-textarea::placeholder {
+    color: var(--text-lighter);
+    font-style: italic;
+  }
+
+  /* ===== Mood Selector ===== */
+  .mood-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mood-btn {
+    font-size: 1.4rem;
+    background: var(--highlight);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.5;
+  }
+  .mood-btn:hover { opacity: 0.8; transform: scale(1.05); }
+  .mood-btn.selected {
+    opacity: 1;
+    border-color: var(--accent-light);
+    background: #fff;
+  }
+
+  /* ===== Meal Input ===== */
+  .meal-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-label {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    min-width: 36px;
+  }
+  .meal-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    color: var(--text);
+    background: transparent;
+    padding: 4px 0;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  .meal-input::placeholder { color: var(--text-lighter); }
+  .meal-cal {
+    width: 70px;
+    text-align: right;
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    background: transparent;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  .meal-cal::placeholder { color: var(--text-lighter); }
+
+  .meal-total {
+    text-align: right;
+    padding-top: 10px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+  .meal-total strong {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+
+  /* ===== Workout ===== */
+  .workout-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .workout-check input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--accent);
+  }
+  .workout-check label {
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  /* ===== Save Button ===== */
+  .save-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .btn-primary {
+    flex: 1;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-family: 'Noto Sans SC', sans-serif;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    letter-spacing: 1px;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:active { opacity: 0.7; }
+
+  .btn-secondary {
+    padding: 14px 20px;
+    background: var(--highlight);
+    color: var(--text-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-family: 'Noto Sans SC', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: var(--border); }
+
+  /* ===== History Side Panel ===== */
+  .history-list {
+    margin-top: 12px;
+  }
+  .history-item {
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 4px;
+    border-left: 3px solid transparent;
+  }
+  .history-item:hover { background: var(--highlight); }
+  .history-item.active {
+    background: var(--highlight);
+    border-left-color: var(--accent);
+  }
+  .history-item .date {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .history-item .preview {
+    font-size: 0.75rem;
+    color: var(--text-lighter);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .history-item .mood-small {
+    font-size: 0.8rem;
+    margin-right: 4px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--text-lighter);
+    font-size: 0.85rem;
+  }
+  .empty-state .big-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  /* ===== Toast ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: all 0.4s;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ===== Responsive fixes ===== */
+  @media (max-width: 400px) {
+    .card { padding: 18px; }
+    .stat-grid { gap: 6px; }
+    .stat-card { padding: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- ===== Sidebar ===== -->
+  <div class="sidebar">
+    <div class="fox-icon">🦊</div>
+    <div class="site-title">佳伊的小小记录</div>
+    <div class="site-sub">每天，都值得被记住</div>
+
+    <div class="nav-section">
+      <div class="nav-label">导航</div>
+      <div class="nav-item active" data-view="daily">
+        <span>📝</span> 今日记录
+      </div>
+      <div class="nav-item" data-view="weight">
+        <span>📏</span> 体重管理
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num" id="statDays">0</div>
+        <div class="lbl">已记录天数</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="statStreak">0</div>
+        <div class="lbl">连续天数</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Main Content ===== -->
+  <div class="main-content" id="mainContent">
+
+    <!-- Daily View -->
+    <div id="viewDaily">
+      <div class="date-header">
+        <div class="day" id="todayDate"></div>
+        <div class="weekday" id="todayWeekday"></div>
+      </div>
+
+      <!-- Mood -->
+      <div class="card">
+        <div class="card-title"><span>💭</span> 今天心情</div>
+        <div class="mood-row" id="moodSelector">
+          <button class="mood-btn" data-mood="😊">😊</button>
+          <button class="mood-btn" data-mood="😌">😌</button>
+          <button class="mood-btn" data-mood="😐">😐</button>
+          <button class="mood-btn" data-mood="😔">😔</button>
+          <button class="mood-btn" data-mood="😤">😤</button>
+          <button class="mood-btn" data-mood="🥰">🥰</button>
+          <button class="mood-btn" data-mood="🦊">🦊</button>
+        </div>
+      </div>
+
+      <!-- Journal -->
+      <div class="card">
+        <div class="card-title"><span>✍️</span> 今天的记录</div>
+        <textarea class="journal-textarea" id="journalEntry" placeholder="写点什么吧……今天过得怎么样？"></textarea>
+      </div>
+
+      <!-- Meals -->
+      <div class="card">
+        <div class="card-title"><span>🥣</span> 今日饮食</div>
+        <div class="meal-row">
+          <span class="meal-label">🌅 早</span>
+          <input class="meal-input" id="mealBreakfast" placeholder="吃了什么？">
+          <input class="meal-cal" id="calBreakfast" placeholder="kcal" type="number">
+        </div>
+        <div class="meal-row">
+          <span class="meal-label">🌞 午</span>
+          <input class="meal-input" id="mealLunch" placeholder="吃了什么？">
+          <input class="meal-cal" id="calLunch" placeholder="kcal" type="number">
+        </div>
+        <div class="meal-row">
+          <span class="meal-label">🌆 晚</span>
+          <input class="meal-input" id="mealDinner" placeholder="吃了什么？">
+          <input class="meal-cal" id="calDinner" placeholder="kcal" type="number">
+        </div>
+        <div class="meal-row">
+          <span class="meal-label">🍿 加</span>
+          <input class="meal-input" id="mealSnack" placeholder="吃了什么？">
+          <input class="meal-cal" id="calSnack" placeholder="kcal" type="number">
+        </div>
+        <div class="meal-total">
+          今日总计 <strong id="totalCal">0</strong> kcal
+        </div>
+      </div>
+
+      <!-- Workout -->
+      <div class="card">
+        <div class="card-title"><span>💪</span> 今日运动</div>
+        <div class="workout-check">
+          <input type="checkbox" id="wkGlute">
+          <label for="wkGlute">🍑 练臀</label>
+        </div>
+        <div class="workout-check">
+          <input type="checkbox" id="wkBack">
+          <label for="wkBack">🔙 练背</label>
+        </div>
+        <div class="workout-check">
+          <input type="checkbox" id="wkCardio">
+          <label for="wkCardio">🏃 爬坡 30min</label>
+        </div>
+        <div class="workout-check" style="margin-top:4px;">
+          <input class="meal-input" id="wkOther" placeholder="其他运动……" style="flex:1;">
+        </div>
+      </div>
+
+      <!-- Weight -->
+      <div class="card">
+        <div class="card-title"><span>📏</span> 今日体重</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="number" id="todayWeight" step="0.1" placeholder="—" style="width:80px;border:none;outline:none;font-size:1.2rem;font-family:'Noto Serif SC',serif;color:var(--accent);background:var(--highlight);padding:8px 12px;border-radius:10px;text-align:center;">
+          <span style="color:var(--text-light);">kg</span>
+          <span id="weightDiff" style="font-size:0.8rem;color:var(--text-lighter);margin-left:8px;"></span>
+        </div>
+      </div>
+
+      <!-- Save -->
+      <div class="save-area">
+        <button class="btn-primary" id="btnSave">🦊 记录今天</button>
+        <button class="btn-secondary" id="btnClear">清空</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== History Panel ===== -->
+  <div class="side-panel">
+    <div class="nav-label">📖 过往记录</div>
+    <div class="history-list" id="historyList">
+      <div class="empty-state">
+        <div class="big-icon">📝</div>
+        还没有记录<br>今天开始写第一篇吧 🦊
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ===== Data Management =====
+  const STORAGE_KEY = 'jiaoyi_journal';
+
+  function loadAll() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch { return {}; }
+  }
+
+  function saveAll(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function getTodayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+
+  function formatDateCN(key) {
+    const [y,m,d] = key.split('-');
+    return `${y}年${parseInt(m)}月${parseInt(d)}日`;
+  }
+
+  function getWeekday(key) {
+    const [y,m,d] = key.split('-');
+    const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    return days[new Date(y,m-1,d).getDay()];
+  }
+
+  // ===== Today Setup =====
+  function setupToday() {
+    const today = getTodayKey();
+    const d = new Date();
+    const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    document.getElementById('todayDate').textContent = formatDateCN(today);
+    document.getElementById('todayWeekday').textContent = getWeekday(today);
+  }
+
+  // ===== Load / Save Record =====
+  function loadRecord(key) {
+    const all = loadAll();
+    return all[key] || null;
+  }
+
+  function saveCurrent() {
+    const today = getTodayKey();
+    const all = loadAll();
+
+    const mood = document.querySelector('.mood-btn.selected');
+    const data = {
+      mood: mood ? mood.dataset.mood : '',
+      journal: document.getElementById('journalEntry').value,
+      meals: {
+        breakfast: document.getElementById('mealBreakfast').value,
+        calB: parseFloat(document.getElementById('calBreakfast').value) || 0,
+        lunch: document.getElementById('mealLunch').value,
+        calL: parseFloat(document.getElementById('calLunch').value) || 0,
+        dinner: document.getElementById('mealDinner').value,
+        calD: parseFloat(document.getElementById('calDinner').value) || 0,
+        snack: document.getElementById('mealSnack').value,
+        calS: parseFloat(document.getElementById('calSnack').value) || 0,
+      },
+      workout: {
+        glute: document.getElementById('wkGlute').checked,
+        back: document.getElementById('wkBack').checked,
+        cardio: document.getElementById('wkCardio').checked,
+        other: document.getElementById('wkOther').value,
+      },
+      weight: parseFloat(document.getElementById('todayWeight').value) || null,
+      updatedAt: new Date().toISOString()
+    };
+
+    all[today] = data;
+    saveAll(all);
+    refreshStats();
+    refreshHistory(today);
+    showToast('🦊 已保存！');
+  }
+
+  function fillRecord(key) {
+    const record = loadRecord(key);
+    if (!record) {
+      // Reset form
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('journalEntry').value = '';
+      document.getElementById('mealBreakfast').value = '';
+      document.getElementById('calBreakfast').value = '';
+      document.getElementById('mealLunch').value = '';
+      document.getElementById('calLunch').value = '';
+      document.getElementById('mealDinner').value = '';
+      document.getElementById('calDinner').value = '';
+      document.getElementById('mealSnack').value = '';
+      document.getElementById('calSnack').value = '';
+      document.getElementById('wkGlute').checked = false;
+      document.getElementById('wkBack').checked = false;
+      document.getElementById('wkCardio').checked = false;
+      document.getElementById('wkOther').value = '';
+      document.getElementById('todayWeight').value = '';
+      document.getElementById('weightDiff').textContent = '';
+      updateCalories();
+      return;
+    }
+
+    // Mood
+    document.querySelectorAll('.mood-btn').forEach(b => {
+      b.classList.toggle('selected', b.dataset.mood === record.mood);
+    });
+
+    // Journal
+    document.getElementById('journalEntry').value = record.journal || '';
+
+    // Meals
+    document.getElementById('mealBreakfast').value = record.meals?.breakfast || '';
+    document.getElementById('calBreakfast').value = record.meals?.calB || '';
+    document.getElementById('mealLunch').value = record.meals?.lunch || '';
+    document.getElementById('calLunch').value = record.meals?.calL || '';
+    document.getElementById('mealDinner').value = record.meals?.dinner || '';
+    document.getElementById('calDinner').value = record.meals?.calD || '';
+    document.getElementById('mealSnack').value = record.meals?.snack || '';
+    document.getElementById('calSnack').value = record.meals?.calS || '';
+
+    // Workout
+    document.getElementById('wkGlute').checked = record.workout?.glute || false;
+    document.getElementById('wkBack').checked = record.workout?.back || false;
+    document.getElementById('wkCardio').checked = record.workout?.cardio || false;
+    document.getElementById('wkOther').value = record.workout?.other || '';
+
+    // Weight
+    if (record.weight) {
+      document.getElementById('todayWeight').value = record.weight;
+      updateWeightDiff(key);
+    } else {
+      document.getElementById('todayWeight').value = '';
+      document.getElementById('weightDiff').textContent = '';
+    }
+
+    updateCalories();
+  }
+
+  // ===== Save on form change =====
+  let autoSaveTimer = null;
+  function autoSave() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+      saveCurrent();
+    }, 2000);
+  }
+
+  // ===== Calories =====
+  function updateCalories() {
+    const c1 = parseFloat(document.getElementById('calBreakfast').value) || 0;
+    const c2 = parseFloat(document.getElementById('calLunch').value) || 0;
+    const c3 = parseFloat(document.getElementById('calDinner').value) || 0;
+    const c4 = parseFloat(document.getElementById('calSnack').value) || 0;
+    const total = c1 + c2 + c3 + c4;
+    document.getElementById('totalCal').textContent = total;
+  }
+
+  // ===== Weight Difference =====
+  function updateWeightDiff(key) {
+    const all = loadAll();
+    const current = parseFloat(document.getElementById('todayWeight').value);
+    if (!current) { document.getElementById('weightDiff').textContent = ''; return; }
+
+    const goal = 52.5;
+    const diff = current - goal;
+    const diffText = diff > 0 ? `还差 ${diff.toFixed(1)} kg 到目标` : diff === 0 ? '🎉 目标达成！' : `已超目标 ${Math.abs(diff).toFixed(1)} kg 🎉`;
+    document.getElementById('weightDiff').textContent = diffText;
+  }
+
+  // ===== History =====
+  function refreshHistory(activeKey) {
+    const all = loadAll();
+    const keys = Object.keys(all).sort().reverse();
+    const container = document.getElementById('historyList');
+
+    if (keys.length === 0) {
+      container.innerHTML = `<div class="empty-state"><div class="big-icon">📝</div>还没有记录<br>今天开始写第一篇吧 🦊</div>`;
+      return;
+    }
+
+    container.innerHTML = keys.map(key => {
+      const record = all[key];
+      const preview = record.journal
+        ? record.journal.substring(0, 30) + (record.journal.length > 30 ? '…' : '')
+        : '(空)';
+      const moodEmoji = record.mood || '📝';
+      const isActive = key === activeKey ? 'active' : '';
+      return `<div class="history-item ${isActive}" data-key="${key}">
+        <div class="date"><span class="mood-small">${moodEmoji}</span> ${formatDateCN(key)} ${getWeekday(key)}</div>
+        <div class="preview">${preview}</div>
+      </div>`;
+    }).join('');
+
+    // Click handler
+    document.querySelectorAll('.history-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const key = el.dataset.key;
+        document.querySelectorAll('.history-item').forEach(h => h.classList.remove('active'));
+        el.classList.add('active');
+        fillRecord(key);
+      });
+    });
+  }
+
+  // ===== Stats =====
+  function refreshStats() {
+    const all = loadAll();
+    const keys = Object.keys(all).sort();
+    document.getElementById('statDays').textContent = keys.length;
+
+    // Calculate streak
+    let streak = 0;
+    const today = new Date();
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      if (all[key]) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+    document.getElementById('statStreak').textContent = streak;
+  }
+
+  // ===== Toast =====
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ===== Clear =====
+  function clearForm() {
+    if (!confirm('确定要清空今天的记录吗？')) return;
+    const today = getTodayKey();
+    const all = loadAll();
+    delete all[today];
+    saveAll(all);
+    fillRecord(today);
+    refreshStats();
+    refreshHistory(today);
+    showToast('已清空');
+  }
+
+  // ===== Auto-save on input =====
+  document.querySelectorAll('input, textarea, .mood-btn').forEach(el => {
+    el.addEventListener('input', autoSave);
+    el.addEventListener('change', autoSave);
+  });
+
+  // ===== Mood selector =====
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      autoSave();
+    });
+  });
+
+  // ===== Calorie auto-calc =====
+  document.querySelectorAll('.meal-cal').forEach(el => {
+    el.addEventListener('input', updateCalories);
+  });
+
+  // ===== Weight auto-diff =====
+  document.getElementById('todayWeight').addEventListener('input', () => {
+    updateWeightDiff(getTodayKey());
+  });
+
+  // ===== Navigation =====
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  // ===== Init =====
+  function init() {
+    setupToday();
+    const today = getTodayKey();
+    fillRecord(today);
+    refreshStats();
+    refreshHistory(today);
+  }
+
+  init();
+
+  // Auto-save on page close
+  window.addEventListener('beforeunload', saveCurrent);
+</script>
+</body>
+</html>
