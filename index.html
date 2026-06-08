@@ -5,604 +5,616 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>佳伊的小小记录</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;600;700&family=Noto+Sans+SC:wght@300;400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;600&family=Noto+Sans+SC:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #1a1a1a;
-    --bg-card: #222222;
-    --text: #d4d0c8;
-    --text-dim: #8a8578;
-    --text-muted: #5e5a50;
-    --accent: #c4a882;
-    --accent-dim: #8a7458;
-    --border: #2c2c2c;
-    --highlight: #2a2722;
-    --warm: #3a3228;
+    --bg: #f5f2ed;
+    --bg-card: #fcfaf7;
+    --text: #2c2c2c;
+    --text-dim: #6b6558;
+    --text-muted: #a09888;
+    --accent: #8b7355;
+    --accent-light: #b8a080;
+    --border: #e2dad0;
+    --border-light: #ece6de;
+    --highlight: #f0ebe4;
+    --warm: #f8f4ef;
+    --serif: 'Noto Serif SC', 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif;
   }
 
   body {
-    font-family: 'Noto Serif SC', 'EB Garamond', Georgia, serif;
+    font-family: var(--serif);
     background: var(--bg);
     color: var(--text);
     line-height: 1.9;
     min-height: 100vh;
     font-weight: 300;
+    letter-spacing: 0.3px;
   }
 
-  /* ===== Film Grain ===== */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
-  }
+  ::selection { background: var(--accent-light); color: var(--bg); opacity: 0.5; }
 
   ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 2px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 2px; }
 
-  /* ===== Desktop Grid ===== */
-  @media (min-width: 820px) {
+  /* ===== Cinema border ===== */
+  .app-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  @media (min-width: 769px) {
     .app-layout {
       display: grid;
-      grid-template-columns: 240px 1fr 280px;
+      grid-template-columns: 200px 1fr 220px;
       min-height: 100vh;
-      max-width: 1400px;
-      margin: 0 auto;
     }
-    .sidebar { border-right: 1px solid var(--border); }
-    .side-panel { border-left: 1px solid var(--border); }
+    .sidebar { border-right: 1px solid var(--border-light); }
+    .side-panel { border-left: 1px solid var(--border-light); }
   }
-  @media (max-width: 819px) {
+  @media (max-width: 768px) {
     .app-layout { display: flex; flex-direction: column; }
-    .sidebar { border-bottom: 1px solid var(--border); }
-    .side-panel { border-top: 1px solid var(--border); }
+    .sidebar {
+      border-bottom: 1px solid var(--border-light);
+      padding: 24px 20px 16px !important;
+    }
+    .side-panel { border-top: 1px solid var(--border-light); }
   }
 
   /* ===== Sidebar ===== */
   .sidebar {
-    padding: 48px 24px 32px;
+    padding: 44px 20px 28px;
     position: sticky; top: 0; height: 100vh; overflow-y: auto;
   }
-  @media (max-width: 819px) {
-    .sidebar { position: static; height: auto; padding: 32px 20px 20px; }
-  }
+  @media (max-width: 768px) { .sidebar { position: static; height: auto; } }
 
-  .site-masthead {
-    text-align: center;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  .site-masthead .emblem {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
-    opacity: 0.8;
-  }
-  .site-masthead h1 {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 1.05rem;
-    font-weight: 300;
+  .masthead { margin-bottom: 28px; }
+  .masthead .emblem { font-size: 1.8rem; margin-bottom: 8px; opacity: 0.7; }
+  .masthead h1 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 200;
     letter-spacing: 6px;
     color: var(--text);
+    line-height: 1.6;
   }
-  .site-masthead .subtitle {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.65rem;
+  .masthead .sub {
+    font-family: var(--sans);
+    font-size: 0.55rem;
     color: var(--text-muted);
     letter-spacing: 3px;
-    margin-top: 6px;
-    font-weight: 300;
+    margin-top: 4px;
+    font-weight: 200;
   }
 
-  .nav-stack {
-    margin-top: 28px;
-    list-style: none;
+  .masthead .divider {
+    width: 24px;
+    height: 1px;
+    background: var(--accent-light);
+    margin: 10px 0;
   }
-  .nav-stack li {
-    padding: 10px 16px;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
+
+  .nav-list { list-style: none; }
+  .nav-list li {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
     color: var(--text-dim);
     cursor: pointer;
     transition: all 0.3s;
+    font-family: var(--sans);
+    font-weight: 200;
     border-left: 2px solid transparent;
-    font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 300;
   }
-  .nav-stack li:hover {
+  .nav-list li:hover { color: var(--accent); background: var(--highlight); }
+  .nav-list li.active {
     color: var(--accent);
     background: var(--highlight);
-  }
-  .nav-stack li.active {
-    color: var(--accent);
     border-left-color: var(--accent);
-    background: var(--highlight);
   }
 
-  .sidebar-stats {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
+  .side-stats {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
   }
-  .sidebar-stats .stat-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 4px;
-    font-size: 0.75rem;
-    font-family: 'Noto Sans SC', sans-serif;
+  .side-stats .row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 4px;
+    font-family: var(--sans);
+    font-size: 0.65rem;
     color: var(--text-dim);
     letter-spacing: 1px;
+    font-weight: 200;
   }
-  .sidebar-stats .stat-row strong {
-    font-family: 'Noto Serif SC', serif;
+  .side-stats .row strong {
+    font-family: var(--serif);
     color: var(--accent);
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   /* ===== Main ===== */
   .main-content {
-    padding: 48px 36px 60px;
-    max-width: 620px;
+    padding: 44px 32px 60px;
+    max-width: 560px;
     margin: 0 auto;
     width: 100%;
   }
-  @media (max-width: 819px) {
-    .main-content { padding: 28px 20px 40px; }
-  }
+  @media (max-width: 768px) { .main-content { padding: 24px 18px 40px; } }
 
-  /* ===== Date ===== */
+  /* ===== Cinematic Date Header ===== */
   .date-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
+    text-align: left;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
   }
   .date-header .day {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 1.6rem;
+    font-family: var(--serif);
+    font-size: 1.2rem;
     font-weight: 200;
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     color: var(--text);
   }
   .date-header .weekday {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.65rem;
+    font-family: var(--sans);
+    font-size: 0.55rem;
     color: var(--text-muted);
-    letter-spacing: 4px;
-    margin-top: 6px;
-    font-weight: 300;
+    letter-spacing: 5px;
+    margin-top: 4px;
+    font-weight: 200;
   }
 
-  /* ===== Section ===== */
+  .date-header .reel-decoration {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 8px;
+  }
+  .date-header .reel-decoration span {
+    display: block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    opacity: 0.4;
+  }
+  .date-header .reel-decoration .bar {
+    width: 24px; height: 1px; border-radius: 0;
+    background: var(--accent-light); opacity: 0.3;
+  }
+
+  /* ===== Philosophy Quote ===== */
+  .cinema-quote {
+    padding: 16px 0 20px;
+    margin-bottom: 24px;
+  }
+  .cinema-quote .text {
+    font-family: 'Cormorant Garamond', var(--serif);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    opacity: 0.8;
+    transition: opacity 0.5s;
+  }
+  .cinema-quote .source {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-top: 6px;
+    font-weight: 200;
+  }
+
+  /* ===== Sections ===== */
   .section {
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
   .section-label {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 4px;
+    font-family: var(--sans);
+    font-size: 0.5rem;
+    letter-spacing: 5px;
     color: var(--text-muted);
-    margin-bottom: 14px;
-    text-transform: uppercase;
-    font-weight: 300;
+    margin-bottom: 12px;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label .ornament {
+    color: var(--accent-light);
+    font-size: 0.45rem;
   }
 
   /* ===== Mood ===== */
   .mood-strip {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     flex-wrap: wrap;
   }
   .mood-btn {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    width: 42px; height: 42px;
+    border: none;
+    width: 38px; height: 38px;
     cursor: pointer;
     transition: all 0.3s;
     display: flex; align-items: center; justify-content: center;
-    opacity: 0.4;
+    opacity: 0.35;
+    border-radius: 50%;
     line-height: 1;
   }
-  .mood-btn:hover { opacity: 0.7; border-color: var(--accent-dim); }
+  .mood-btn:hover { opacity: 0.7; background: var(--warm); }
   .mood-btn.selected {
     opacity: 1;
-    border-color: var(--accent);
-    background: var(--warm);
-    box-shadow: 0 0 20px rgba(196,168,130,0.08);
+    background: var(--highlight);
+    box-shadow: 0 0 0 1px var(--accent-light);
   }
 
   /* ===== Journal ===== */
   .journal-area {
     position: relative;
   }
-  .journal-area::before {
-    content: '\201C';
-    position: absolute;
-    top: -8px; left: -4px;
-    font-size: 3rem;
-    color: var(--accent-dim);
-    opacity: 0.3;
-    font-family: Georgia, serif;
-    line-height: 1;
-  }
   .journal-textarea {
     width: 100%;
     border: none;
     outline: none;
     resize: vertical;
-    min-height: 130px;
-    font-family: 'Noto Serif SC', Georgia, serif;
-    font-size: 0.9rem;
+    min-height: 120px;
+    font-family: var(--serif);
+    font-size: 0.85rem;
     line-height: 2;
     color: var(--text);
     background: transparent;
     padding: 4px 0 4px 16px;
     font-weight: 300;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
+    border-left: 1px solid var(--border-light);
   }
   .journal-textarea::placeholder {
     color: var(--text-muted);
     font-style: italic;
-    font-size: 0.85rem;
-    opacity: 0.6;
+    font-size: 0.8rem;
+    opacity: 0.4;
+    font-weight: 200;
   }
 
   /* ===== Meal ===== */
   .meal-entry {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
   }
   .meal-entry:last-of-type { border-bottom: none; }
   .meal-tag {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.6rem;
+    font-family: var(--sans);
+    font-size: 0.5rem;
     letter-spacing: 2px;
     color: var(--text-muted);
-    min-width: 28px;
-    font-weight: 300;
+    min-width: 18px;
+    font-weight: 200;
   }
   .meal-input {
     flex: 1;
     border: none;
     outline: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text);
     background: transparent;
     padding: 4px 0;
-    font-family: 'Noto Serif SC', Georgia, serif;
+    font-family: var(--serif);
     font-weight: 300;
   }
-  .meal-input::placeholder { color: var(--text-muted); opacity: 0.5; font-style: italic; }
+  .meal-input::placeholder { color: var(--text-muted); opacity: 0.3; font-style: italic; }
   .meal-cal {
-    width: 65px;
+    width: 58px;
     text-align: right;
     border: none;
     outline: none;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-dim);
     background: transparent;
-    font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 300;
+    font-family: var(--sans);
+    font-weight: 200;
+    opacity: 0.6;
   }
-  .meal-cal::placeholder { color: var(--text-muted); opacity: 0.4; }
+  .meal-cal::placeholder { color: var(--text-muted); opacity: 0.3; }
   .meal-total {
     text-align: right;
-    padding-top: 12px;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.8rem;
+    padding-top: 8px;
+    font-family: var(--serif);
+    font-size: 0.7rem;
     color: var(--text-dim);
     letter-spacing: 1px;
+    font-weight: 200;
   }
   .meal-total strong {
-    font-family: 'Noto Serif SC', serif;
     font-weight: 300;
     color: var(--accent);
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   /* ===== Workout ===== */
   .workout-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 0;
+    gap: 10px;
+    padding: 6px 0;
   }
   .workout-item input[type="checkbox"] {
     appearance: none;
-    width: 14px; height: 14px;
+    width: 12px; height: 12px;
     border: 1px solid var(--text-muted);
-    border-radius: 50%;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.3s;
     flex-shrink: 0;
     position: relative;
+    opacity: 0.5;
   }
   .workout-item input[type="checkbox"]:checked {
     border-color: var(--accent);
     background: var(--accent);
-    box-shadow: 0 0 12px rgba(196,168,130,0.15);
+    opacity: 1;
   }
   .workout-item input[type="checkbox"]:checked::after {
-    content: '';
+    content: '—';
     position: absolute;
-    top: 3px; left: 3px;
-    width: 6px; height: 6px;
-    background: var(--bg);
-    border-radius: 50%;
+    top: -4px; left: 1px;
+    font-size: 0.7rem;
+    color: var(--bg);
+    line-height: 1;
   }
   .workout-item label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text);
     cursor: pointer;
     font-weight: 300;
     letter-spacing: 1px;
+    font-family: var(--serif);
   }
   .workout-other {
-    margin-top: 6px;
+    margin-top: 4px;
     border: none; outline: none;
     background: transparent;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.8rem;
+    font-family: var(--serif);
+    font-size: 0.75rem;
     color: var(--text-dim);
     width: 100%;
-    padding: 6px 0;
+    padding: 4px 0;
     font-weight: 300;
+    font-style: italic;
   }
-  .workout-other::placeholder { color: var(--text-muted); font-style: italic; opacity: 0.5; }
+  .workout-other::placeholder { color: var(--text-muted); opacity: 0.3; font-style: italic; }
 
   /* ===== Weight ===== */
   .weight-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 8px;
   }
   .weight-input {
-    width: 80px;
+    width: 72px;
     border: none; outline: none;
     background: transparent;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 1.4rem;
+    font-family: var(--serif);
+    font-size: 1.3rem;
     color: var(--accent);
-    padding: 6px 10px;
-    border-bottom: 1px solid var(--border);
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border-light);
     text-align: center;
     font-weight: 300;
-    transition: border-color 0.3s;
   }
-  .weight-input:focus { border-color: var(--accent-dim); }
   .weight-unit {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.7rem;
+    font-family: var(--sans);
+    font-size: 0.6rem;
     color: var(--text-muted);
     letter-spacing: 2px;
+    font-weight: 200;
   }
   .weight-diff {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.75rem;
+    font-family: 'Cormorant Garamond', var(--serif);
+    font-size: 0.7rem;
     color: var(--text-dim);
-    margin-left: 8px;
+    margin-left: 6px;
     font-style: italic;
     font-weight: 300;
   }
 
-  /* ===== Save ===== */
+  /* ===== Buttons ===== */
   .save-bar {
     display: flex;
-    gap: 10px;
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
+    gap: 8px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
   }
   .btn-save {
     flex: 1;
-    padding: 14px 24px;
+    padding: 12px 20px;
     background: transparent;
     color: var(--accent);
-    border: 1px solid var(--accent-dim);
-    border-radius: 0;
-    font-size: 0.75rem;
-    font-family: 'Noto Sans SC', sans-serif;
+    border: 1px solid var(--accent-light);
+    font-size: 0.65rem;
+    font-family: var(--sans);
     cursor: pointer;
+    letter-spacing: 5px;
+    font-weight: 200;
     transition: all 0.4s;
-    letter-spacing: 4px;
-    font-weight: 300;
   }
-  .btn-save:hover {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-  }
+  .btn-save:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .btn-clear {
-    padding: 14px 20px;
+    padding: 12px 16px;
     background: transparent;
     color: var(--text-muted);
-    border: 1px solid var(--border);
-    border-radius: 0;
-    font-size: 0.7rem;
-    font-family: 'Noto Sans SC', sans-serif;
+    border: 1px solid var(--border-light);
+    font-size: 0.6rem;
+    font-family: var(--sans);
     cursor: pointer;
+    letter-spacing: 3px;
+    font-weight: 200;
     transition: all 0.3s;
-    letter-spacing: 2px;
-    font-weight: 300;
   }
   .btn-clear:hover { color: var(--text-dim); border-color: var(--text-muted); }
 
   /* ===== Side Panel ===== */
   .side-panel {
-    padding: 48px 20px 32px;
+    padding: 44px 16px 28px;
     position: sticky; top: 0; height: 100vh; overflow-y: auto;
   }
-  @media (max-width: 819px) {
-    .side-panel { position: static; height: auto; padding: 24px 20px 32px; }
-  }
+  @media (max-width: 768px) { .side-panel { position: static; height: auto; padding: 20px 18px 28px; } }
 
-  .panel-header {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 4px;
+  .panel-title {
+    font-family: var(--sans);
+    font-size: 0.5rem;
+    letter-spacing: 5px;
     color: var(--text-muted);
-    text-transform: uppercase;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    font-weight: 300;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+    font-weight: 200;
   }
 
-  .history-list {
-    margin-top: 8px;
-  }
+  .history-list { margin-top: 4px; }
   .history-empty {
     text-align: center;
-    padding: 40px 0;
+    padding: 32px 0;
     color: var(--text-muted);
-    font-size: 0.8rem;
-    font-weight: 300;
-    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 200;
     line-height: 2;
+    font-family: var(--serif);
   }
-  .history-empty .icon { font-size: 2rem; opacity: 0.3; margin-bottom: 12px; }
+  .history-empty .icon { font-size: 1.6rem; opacity: 0.25; margin-bottom: 8px; }
 
   .history-item {
-    padding: 14px 12px;
+    padding: 10px 10px;
     cursor: pointer;
     transition: all 0.3s;
-    margin-bottom: 2px;
-    border-left: 2px solid transparent;
+    margin-bottom: 1px;
   }
   .history-item:hover { background: var(--highlight); }
-  .history-item.active {
-    background: var(--highlight);
-    border-left-color: var(--accent);
-  }
+  .history-item.active { background: var(--highlight); border-left: 2px solid var(--accent); padding-left: 8px; }
   .history-item .h-date {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.75rem;
+    font-family: var(--serif);
+    font-size: 0.7rem;
     color: var(--text);
     letter-spacing: 1px;
     font-weight: 300;
   }
   .history-item .h-preview {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.7rem;
+    font-family: var(--serif);
+    font-size: 0.65rem;
     color: var(--text-muted);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-top: 4px;
+    margin-top: 2px;
     font-style: italic;
-    font-weight: 300;
+    font-weight: 200;
   }
 
   /* ===== Toast ===== */
   .toast {
     position: fixed;
-    bottom: 40px;
+    bottom: 36px;
     left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--highlight);
-    color: var(--accent);
-    padding: 12px 28px;
-    font-size: 0.75rem;
-    font-family: 'Noto Sans SC', sans-serif;
-    letter-spacing: 2px;
+    transform: translateX(-50%) translateY(60px);
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 24px;
+    font-size: 0.65rem;
+    font-family: var(--sans);
+    letter-spacing: 3px;
     opacity: 0;
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
     z-index: 1000;
     pointer-events: none;
-    border: 1px solid var(--border);
-    font-weight: 300;
+    font-weight: 200;
   }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* ===== Cinematic Quote Rotation ===== */
-  .cinema-bar {
-    text-align: center;
-    padding: 8px 0;
-    margin-bottom: 24px;
+  /* ===== Film frame decoration ===== */
+  .film-marks {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 20px;
+    margin-top: 8px;
   }
-  .cinema-bar .quote {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.7rem;
+  .film-marks span {
+    flex: 1;
+    height: 2px;
+    background: var(--border-light);
+    border-radius: 1px;
+  }
+  .film-marks span:nth-child(odd) { opacity: 0.3; }
+  .film-marks span:nth-child(even) { opacity: 0.15; }
+
+  /* ===== Philosophy tags ===== */
+  .phil-tag {
+    font-family: 'Cormorant Garamond', var(--serif);
+    font-size: 0.6rem;
     color: var(--text-muted);
     font-style: italic;
-    letter-spacing: 2px;
     font-weight: 300;
-    transition: opacity 0.6s;
     opacity: 0.5;
   }
-
-  /* Selection color */
-  ::selection { background: var(--accent-dim); color: var(--bg); }
 </style>
 </head>
 <body>
 
+<div class="app-wrapper">
 <div class="app-layout">
 
-  <!-- ===== Sidebar ===== -->
+  <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="site-masthead">
+    <div class="masthead">
       <div class="emblem">🦊</div>
-      <h1>佳伊的小小记录</h1>
-      <div class="subtitle">cine-diary</div>
+      <h1>佳伊的<br>小小记录</h1>
+      <div class="sub">· journal intime ·</div>
     </div>
 
-    <ul class="nav-stack">
-      <li class="active">📝 今日</li>
-      <li>📏 体重</li>
+    <ul class="nav-list">
+      <li class="active">📓 日记</li>
+      <li>📏 身体</li>
     </ul>
 
-    <div class="sidebar-stats">
-      <div class="stat-row">
-        <span>已记录</span>
-        <strong id="statDays">0</strong>
-        <span>天</span>
-      </div>
-      <div class="stat-row">
-        <span>连续</span>
-        <strong id="statStreak">0</strong>
-        <span>天</span>
-      </div>
-      <div class="stat-row">
-        <span>当前体重</span>
-        <strong id="statLatest">—</strong>
-        <span>kg</span>
-      </div>
+    <div class="side-stats">
+      <div class="row"><span>已记录</span><strong id="statDays">0</strong><span>天</span></div>
+      <div class="row"><span>连续</span><strong id="statStreak">0</strong><span>天</span></div>
+      <div class="row"><span>体重</span><strong id="statLatest">—</strong><span>kg</span></div>
     </div>
   </div>
 
-  <!-- ===== Main ===== -->
+  <!-- MAIN -->
   <div class="main-content">
 
     <div class="date-header">
       <div class="day" id="todayDate"></div>
       <div class="weekday" id="todayWeekday"></div>
-
+      <div class="reel-decoration">
+        <span class="bar"></span>
+        <span></span><span></span><span></span>
+        <span class="bar"></span>
+      </div>
     </div>
 
-    <!-- Cinema Quote -->
-    <div class="cinema-bar">
-      <div class="quote" id="cinemaQuote">「电影不是为了让时间不朽，而是为了让时间可见。」</div>
+    <!-- Quote -->
+    <div class="cinema-quote">
+      <div class="text" id="cinemaQuote">「我们只有在电影里才能看到时间本来的样子。」</div>
+      <div class="source" id="quoteSource">— André Bazin, Qu'est-ce que le cinéma?</div>
     </div>
 
     <!-- Mood -->
     <div class="section">
-      <div class="section-label">· 今日情绪</div>
+      <div class="section-label"><span class="ornament">◆</span> HUMEUR · 情绪</div>
       <div class="mood-strip" id="moodSelector">
         <button class="mood-btn" data-mood="😊">😊</button>
         <button class="mood-btn" data-mood="😌">😌</button>
@@ -616,127 +628,130 @@
 
     <!-- Journal -->
     <div class="section">
-      <div class="section-label">· 随笔</div>
+      <div class="section-label"><span class="ornament">◇</span> ÉCRITURE · 随笔</div>
       <div class="journal-area">
-        <textarea class="journal-textarea" id="journalEntry" placeholder="写点什么吧……"></textarea>
+        <textarea class="journal-textarea" id="journalEntry" placeholder="写下今日的思绪……"></textarea>
       </div>
     </div>
 
     <!-- Meals -->
     <div class="section">
-      <div class="section-label">· 今日食单</div>
+      <div class="section-label"><span class="ornament">○</span> REPAS · 食单</div>
       <div class="meal-entry">
-        <span class="meal-tag">朝</span>
-        <input class="meal-input" id="mealBreakfast" placeholder="吃了什么">
-        <input class="meal-cal" id="calBreakfast" placeholder="kcal" type="number">
+        <span class="meal-tag">Matin</span>
+        <input class="meal-input" id="mealBreakfast" placeholder="朝食">
+        <input class="meal-cal" id="calBreakfast" placeholder="kcal">
       </div>
       <div class="meal-entry">
-        <span class="meal-tag">昼</span>
-        <input class="meal-input" id="mealLunch" placeholder="吃了什么">
-        <input class="meal-cal" id="calLunch" placeholder="kcal" type="number">
+        <span class="meal-tag">Midi</span>
+        <input class="meal-input" id="mealLunch" placeholder="午食">
+        <input class="meal-cal" id="calLunch" placeholder="kcal">
       </div>
       <div class="meal-entry">
-        <span class="meal-tag">暮</span>
-        <input class="meal-input" id="mealDinner" placeholder="吃了什么">
-        <input class="meal-cal" id="calDinner" placeholder="kcal" type="number">
+        <span class="meal-tag">Soir</span>
+        <input class="meal-input" id="mealDinner" placeholder="晚食">
+        <input class="meal-cal" id="calDinner" placeholder="kcal">
       </div>
       <div class="meal-entry">
-        <span class="meal-tag">间</span>
-        <input class="meal-input" id="mealSnack" placeholder="吃了什么">
-        <input class="meal-cal" id="calSnack" placeholder="kcal" type="number">
+        <span class="meal-tag">Entre</span>
+        <input class="meal-input" id="mealSnack" placeholder="间食">
+        <input class="meal-cal" id="calSnack" placeholder="kcal">
       </div>
-      <div class="meal-total">今日摄入 · <strong id="totalCal">0</strong> kcal</div>
+      <div class="meal-total">Total · <strong id="totalCal">0</strong> kcal</div>
     </div>
 
     <!-- Workout -->
     <div class="section">
-      <div class="section-label">· 身体笔记</div>
+      <div class="section-label"><span class="ornament">□</span> CORPS · 身体</div>
       <div class="workout-item">
         <input type="checkbox" id="wkGlute">
-        <label for="wkGlute">臀</label>
+        <label for="wkGlute">Fessiers · 臀</label>
       </div>
       <div class="workout-item">
         <input type="checkbox" id="wkBack">
-        <label for="wkBack">背</label>
+        <label for="wkBack">Dos · 背</label>
       </div>
       <div class="workout-item">
         <input type="checkbox" id="wkCardio">
-        <label for="wkCardio">爬坡 30min</label>
+        <label for="wkCardio">Cardio · 爬坡 30′</label>
       </div>
-      <input class="workout-other" id="wkOther" placeholder="其他运动……">
+      <input class="workout-other" id="wkOther" placeholder="Autre… 其他运动">
     </div>
 
     <!-- Weight -->
     <div class="section">
-      <div class="section-label">· 体重</div>
+      <div class="section-label"><span class="ornament">△</span> POIDS · 体重</div>
       <div class="weight-area">
         <input class="weight-input" id="todayWeight" type="number" step="0.1" placeholder="—">
         <span class="weight-unit">kg</span>
         <span class="weight-diff" id="weightDiff"></span>
       </div>
+      <div class="phil-tag" style="margin-top:4px;">τὸ σῶμα · le corps est le jardin de l'âme</div>
     </div>
 
     <!-- Save -->
     <div class="save-bar">
-      <button class="btn-save" id="btnSave">保 存</button>
-      <button class="btn-clear" id="btnClear">清空</button>
+      <button class="btn-save" id="btnSave">SAUVEGARDER · 保存</button>
+      <button class="btn-clear" id="btnClear">VIDER · 清空</button>
     </div>
   </div>
 
-  <!-- ===== History ===== -->
+  <!-- SIDE PANEL -->
   <div class="side-panel">
-    <div class="panel-header">· 过往</div>
+    <div class="panel-title">· ARCHIVES ·</div>
     <div class="history-list" id="historyList">
       <div class="history-empty">
         <div class="icon">🎞️</div>
-        还没有记录<br>今天开始写第一篇吧
+        尚未有记录<br>
+        <em>le commencement</em>
       </div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-  const STORAGE_KEY = '**';
+  const STORAGE_KEY = '***';
   const QUOTES = [
-    '「电影不是为了让时间不朽，而是为了让时间可见。」',
-    '「我们看电影，是为了遇见另一种生活。」',
-    '「故事是生活的比喻。」',
-    '「每一帧都是时间的切片。」',
-    '「电影是最接近梦的语言。」',
-    '「好的电影让你在别人的故事里，看见自己。」',
-    '「日子是写在水上的字。」',
-    '「把每一天都过成一个好故事。」',
-    '「缓慢也是一种速度。」',
-    '「记忆就像电影胶片，需要被冲洗才能显现。」',
-    '「有些画面会一直留在心里。」',
-    '「安静地记录，就是对抗遗忘的方式。」'
+    { text: '「电影不是为了让时间不朽，而是为了让时间可见。」', source: '— André Bazin' },
+    { text: '「未经审视的人生不值得过。」', source: '— Socrates, Ἀπολογία Σωκράτους' },
+    { text: '「我思故我在。」', source: '— Descartes, Discours de la méthode' },
+    { text: '「人是一根会思想的芦苇。」', source: '— Pascal, Pensées' },
+    { text: '「认识你自己。」', source: '— Γνῶθι σεαυτόν · Inscription delphique' },
+    { text: '「幸福就是拥有一个你真正想要的灵魂。」', source: '— Aristote, Ἠθικὰ Νικομάχεια' },
+    { text: '「我们只有在电影里才能看到时间本来的样子。」', source: '— André Bazin' },
+    { text: '「存在先于本质。」', source: '— Sartre, L\'existentialisme est un humanisme' },
+    { text: '「永恒是每一个当下的无限延伸。」', source: '— Kierkegaard' },
+    { text: '「在世界的尽头，我发现了自己。」', source: '— Camus, Le Mythe de Sisyphe' },
+    { text: '「摄影机是时间的雕刻刀。」', source: '— Tarkovsky, Sculpting in Time' },
+    { text: '「对人生抱有一种审美的态度。」', source: '— Nietzsche, Die Geburt der Tragödie' },
+    { text: '「重要的不是治愈，而是带着病痛活下去。」', source: '— Camus' },
+    { text: '「电影是关于凝视的学问。」', source: '— Godard' },
+    { text: '「人是自由的，人注定自由。」', source: '— Sartre' },
+    { text: '「在月光下，我们看清的不是事物，而是事物之间的沉默。」', source: '— Bresson, Notes sur le cinématographe' },
+    { text: '「每天早晨，世界重新开始。」', source: '— Virginia Woolf' },
+    { text: '「成为你自己。」', source: '— Nietzsche, Also sprach Zarathustra' },
   ];
 
-  function loadAll() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-    catch { return {}; }
-  }
+  function loadAll() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
   function saveAll(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
 
   function getTodayKey() {
     const d = new Date();
-    return d.getFullYear() + '-' +
-      String(d.getMonth()+1).padStart(2,'0') + '-' +
-      String(d.getDate()).padStart(2,'0');
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
   }
 
   function fmtDateCN(key) {
     const [y,m,d] = key.split('-');
-    const cn = ['〇','一','二','三','四','五','六','七','八','九','十','十一','十二'];
-    return y + '年' + cn[parseInt(m)] + '月' + cn[parseInt(d)] + '日';
+    const cn = ['零','一','二','三','四','五','六','七','八','九','十','十一','十二'];
+    return y + ' 年 ' + cn[parseInt(m)] + ' 月 ' + cn[parseInt(d)] + ' 日';
   }
+
   function fmtWeekday(key) {
     const [y,m,d] = key.split('-');
-    const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-    return days[new Date(y,m-1,d).getDay()];
+    return ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'][new Date(y,m-1,d).getDay()];
   }
 
   function showDate() {
@@ -745,224 +760,105 @@
     document.getElementById('todayWeekday').textContent = fmtWeekday(k);
   }
 
-  // Random quote
   function setQuote() {
-    const el = document.getElementById('cinemaQuote');
-    let idx = Math.floor(Math.random() * QUOTES.length);
-    // Use date to pick deterministic quote of the day
     const today = getTodayKey();
     const dayNum = today.split('-').reduce((a,b) => a + parseInt(b), 0);
-    idx = dayNum % QUOTES.length;
-    el.textContent = QUOTES[idx];
+    const idx = dayNum % QUOTES.length;
+    document.getElementById('cinemaQuote').textContent = QUOTES[idx].text;
+    document.getElementById('quoteSource').textContent = QUOTES[idx].source;
   }
 
-  // Fill record
   function fillRecord(key) {
-    const all = loadAll();
-    const r = all[key];
-
+    const all = loadAll(); const r = all[key];
     if (!r) {
       document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
       document.getElementById('journalEntry').value = '';
-      ['Breakfast','Lunch','Dinner','Snack'].forEach(m => {
-        document.getElementById('meal'+m).value = '';
-        document.getElementById('cal'+m).value = '';
-      });
-      document.getElementById('wkGlute').checked = false;
-      document.getElementById('wkBack').checked = false;
-      document.getElementById('wkCardio').checked = false;
-      document.getElementById('wkOther').value = '';
-      document.getElementById('todayWeight').value = '';
-      document.getElementById('weightDiff').textContent = '';
-      calcCal();
-      return;
+      ['Breakfast','Lunch','Dinner','Snack'].forEach(m => { document.getElementById('meal'+m).value=''; document.getElementById('cal'+m).value=''; });
+      ['Glute','Back','Cardio'].forEach(w => document.getElementById('wk'+w).checked=false);
+      document.getElementById('wkOther').value='';
+      document.getElementById('todayWeight').value=''; document.getElementById('weightDiff').textContent='';
+      calcCal(); return;
     }
-
-    document.querySelectorAll('.mood-btn').forEach(b =>
-      b.classList.toggle('selected', b.dataset.mood === r.mood));
-
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.toggle('selected', b.dataset.mood === r.mood));
     document.getElementById('journalEntry').value = r.journal || '';
-
     const meals = r.meals || {};
-    document.getElementById('mealBreakfast').value = meals.breakfast || '';
-    document.getElementById('calBreakfast').value = meals.calB || '';
-    document.getElementById('mealLunch').value = meals.lunch || '';
-    document.getElementById('calLunch').value = meals.calL || '';
-    document.getElementById('mealDinner').value = meals.dinner || '';
-    document.getElementById('calDinner').value = meals.calD || '';
-    document.getElementById('mealSnack').value = meals.snack || '';
-    document.getElementById('calSnack').value = meals.calS || '';
-
+    document.getElementById('mealBreakfast').value = meals.breakfast||''; document.getElementById('calBreakfast').value = meals.calB||'';
+    document.getElementById('mealLunch').value = meals.lunch||''; document.getElementById('calLunch').value = meals.calL||'';
+    document.getElementById('mealDinner').value = meals.dinner||''; document.getElementById('calDinner').value = meals.calD||'';
+    document.getElementById('mealSnack').value = meals.snack||''; document.getElementById('calSnack').value = meals.calS||'';
     const w = r.workout || {};
-    document.getElementById('wkGlute').checked = w.glute || false;
-    document.getElementById('wkBack').checked = w.back || false;
-    document.getElementById('wkCardio').checked = w.cardio || false;
-    document.getElementById('wkOther').value = w.other || '';
-
-    if (r.weight) {
-      document.getElementById('todayWeight').value = r.weight;
-      updWeightDiff(key);
-    } else {
-      document.getElementById('todayWeight').value = '';
-      document.getElementById('weightDiff').textContent = '';
-    }
+    document.getElementById('wkGlute').checked = w.glute||false; document.getElementById('wkBack').checked = w.back||false;
+    document.getElementById('wkCardio').checked = w.cardio||false; document.getElementById('wkOther').value = w.other||'';
+    if (r.weight) { document.getElementById('todayWeight').value = r.weight; updWeightDiff(key); }
+    else { document.getElementById('todayWeight').value=''; document.getElementById('weightDiff').textContent=''; }
     calcCal();
   }
 
   function saveCurrent() {
-    const key = getTodayKey();
-    const all = loadAll();
+    const key = getTodayKey(); const all = loadAll();
     const mood = document.querySelector('.mood-btn.selected');
     all[key] = {
-      mood: mood ? mood.dataset.mood : '',
-      journal: document.getElementById('journalEntry').value,
-      meals: {
-        breakfast: document.getElementById('mealBreakfast').value,
-        calB: parseFloat(document.getElementById('calBreakfast').value) || 0,
-        lunch: document.getElementById('mealLunch').value,
-        calL: parseFloat(document.getElementById('calLunch').value) || 0,
-        dinner: document.getElementById('mealDinner').value,
-        calD: parseFloat(document.getElementById('calDinner').value) || 0,
-        snack: document.getElementById('mealSnack').value,
-        calS: parseFloat(document.getElementById('calSnack').value) || 0,
-      },
-      workout: {
-        glute: document.getElementById('wkGlute').checked,
-        back: document.getElementById('wkBack').checked,
-        cardio: document.getElementById('wkCardio').checked,
-        other: document.getElementById('wkOther').value,
-      },
+      mood: mood ? mood.dataset.mood : '', journal: document.getElementById('journalEntry').value,
+      meals: { breakfast: document.getElementById('mealBreakfast').value, calB: parseFloat(document.getElementById('calBreakfast').value)||0, lunch: document.getElementById('mealLunch').value, calL: parseFloat(document.getElementById('calLunch').value)||0, dinner: document.getElementById('mealDinner').value, calD: parseFloat(document.getElementById('calDinner').value)||0, snack: document.getElementById('mealSnack').value, calS: parseFloat(document.getElementById('calSnack').value)||0 },
+      workout: { glute: document.getElementById('wkGlute').checked, back: document.getElementById('wkBack').checked, cardio: document.getElementById('wkCardio').checked, other: document.getElementById('wkOther').value },
       weight: parseFloat(document.getElementById('todayWeight').value) || null,
       updatedAt: new Date().toISOString()
     };
-    saveAll(all);
-    refreshStats();
-    refreshHistory(key);
-    toast('已保存');
+    saveAll(all); refreshStats(); refreshHistory(key); toast('sauvegardé');
   }
 
   function calcCal() {
-    const c = [1,2,3,4].map(i =>
-      parseFloat(document.getElementById('cal'+['Breakfast','Lunch','Dinner','Snack'][i-1]).value) || 0);
+    const c = [1,2,3,4].map(i => parseFloat(document.getElementById('cal'+['Breakfast','Lunch','Dinner','Snack'][i-1]).value)||0);
     document.getElementById('totalCal').textContent = c.reduce((a,b)=>a+b,0);
   }
 
   function updWeightDiff(key) {
     const w = parseFloat(document.getElementById('todayWeight').value);
-    if (!w) { document.getElementById('weightDiff').textContent = ''; return; }
-    const goal = 52.5;
-    const d = w - goal;
-    document.getElementById('weightDiff').textContent =
-      d > 0 ? `— 还差 ${d.toFixed(1)} kg` : d === 0 ? '— 🎉 目标达成' : '— 已达成目标 🎉';
+    if (!w) { document.getElementById('weightDiff').textContent=''; return; }
+    const d = w - 52.5;
+    document.getElementById('weightDiff').textContent = d > 0 ? `— encore ${d.toFixed(1)} kg` : d === 0 ? '— σκοπός ἐστιν' : '— τετέλεσται';
   }
 
   function refreshHistory(activeKey) {
-    const all = loadAll();
-    const keys = Object.keys(all).sort().reverse();
+    const all = loadAll(); const keys = Object.keys(all).sort().reverse();
     const el = document.getElementById('historyList');
-    if (!keys.length) {
-      el.innerHTML = '<div class="history-empty"><div class="icon">🎞️</div>还没有记录<br>今天开始写第一篇吧</div>';
-      return;
-    }
+    if (!keys.length) { el.innerHTML = '<div class="history-empty"><div class="icon">🎞️</div>尚未有记录<br><em>le commencement</em></div>'; return; }
     el.innerHTML = keys.map(k => {
-      const r = all[k];
-      const pv = r.journal ? r.journal.slice(0,28) + (r.journal.length > 28 ? '…' : '') : '(空)';
+      const r = all[k]; const pv = r.journal ? r.journal.slice(0,28)+(r.journal.length>28?'…':'') : '—';
       const act = k === activeKey ? ' active' : '';
-      return `<div class="history-item${act}" data-key="${k}">
-        <div class="h-date">${r.mood||'📝'} ${fmtDateCN(k)}</div>
-        <div class="h-preview">${pv}</div>
-      </div>`;
+      return '<div class="history-item'+act+'" data-key="'+k+'"><div class="h-date">'+(r.mood||'·')+' '+fmtDateCN(k)+'</div><div class="h-preview">'+pv+'</div></div>';
     }).join('');
-    document.querySelectorAll('.history-item').forEach(el => {
-      el.addEventListener('click', () => {
-        document.querySelectorAll('.history-item').forEach(h => h.classList.remove('active'));
-        el.classList.add('active');
-        fillRecord(el.dataset.key);
-      });
-    });
+    document.querySelectorAll('.history-item').forEach(el => { el.addEventListener('click', function() { document.querySelectorAll('.history-item').forEach(h => h.classList.remove('active')); this.classList.add('active'); fillRecord(this.dataset.key); }); });
   }
 
   function refreshStats() {
-    const all = loadAll();
-    const keys = Object.keys(all).sort();
+    const all = loadAll(); const keys = Object.keys(all).sort();
     document.getElementById('statDays').textContent = keys.length;
-
-    let streak = 0;
-    const today = new Date();
-    for (let i = 0; i < 365; i++) {
-      const d = new Date(today); d.setDate(d.getDate() - i);
-      const k = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-      if (all[k]) streak++; else break;
-    }
+    let streak = 0; const today = new Date();
+    for (let i = 0; i < 365; i++) { const d = new Date(today); d.setDate(d.getDate()-i); const k = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); if (all[k]) streak++; else break; }
     document.getElementById('statStreak').textContent = streak;
-
-    // latest weight
     const weighted = keys.filter(k => all[k].weight).reverse();
     document.getElementById('statLatest').textContent = weighted.length ? all[weighted[0]].weight : '—';
   }
 
-  function toast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = '· ' + msg + ' ·';
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
-  }
+  function toast(msg) { const t = document.getElementById('toast'); t.textContent='· '+msg+' ·'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); }
 
-  function clearToday() {
-    const key = getTodayKey();
-    const all = loadAll();
-    delete all[key];
-    saveAll(all);
-    fillRecord(key);
-    refreshStats();
-    refreshHistory(key);
-    toast('已清空');
-  }
+  function clearToday() { const key = getTodayKey(); const all = loadAll(); delete all[key]; saveAll(all); fillRecord(key); refreshStats(); refreshHistory(key); toast('vidé'); }
 
   let autoTimer = null;
-  function autoSave() {
-    clearTimeout(autoTimer);
-    autoTimer = setTimeout(saveCurrent, 2500);
-  }
+  function autoSave() { clearTimeout(autoTimer); autoTimer = setTimeout(saveCurrent, 2500); }
 
-  // Init
-  function init() {
-    showDate();
-    setQuote();
-    const today = getTodayKey();
-    fillRecord(today);
-    refreshStats();
-    refreshHistory(today);
-  }
-
-  // Events
-  document.querySelectorAll('.mood-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.mood-btn').forEach(x => x.classList.remove('selected'));
-      b.classList.add('selected');
-      autoSave();
-    });
-  });
-
-  ['journalEntry','mealBreakfast','calBreakfast','mealLunch','calLunch',
-   'mealDinner','calDinner','mealSnack','calSnack',
-   'wkGlute','wkBack','wkCardio','wkOther','todayWeight'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('input', autoSave);
-      el.addEventListener('change', autoSave);
-    }
-  });
-
+  document.querySelectorAll('.mood-btn').forEach(b => { b.addEventListener('click', function() { document.querySelectorAll('.mood-btn').forEach(x => x.classList.remove('selected')); this.classList.add('selected'); autoSave(); }); });
+  ['journalEntry','mealBreakfast','calBreakfast','mealLunch','calLunch','mealDinner','calDinner','mealSnack','calSnack','wkGlute','wkBack','wkCardio','wkOther','todayWeight'].forEach(id => { const el = document.getElementById(id); if (el) { el.addEventListener('input', autoSave); el.addEventListener('change', autoSave); } });
   document.querySelectorAll('.meal-cal').forEach(el => el.addEventListener('input', calcCal));
   document.getElementById('todayWeight').addEventListener('input', function() { updWeightDiff(getTodayKey()); });
-
-  document.getElementById('btnSave').addEventListener('click', () => { saveCurrent(); toast('已保存'); });
+  document.getElementById('btnSave').addEventListener('click', ()=>{ saveCurrent(); toast('sauvegardé'); });
   document.getElementById('btnClear').addEventListener('click', clearToday);
-
   window.addEventListener('beforeunload', saveCurrent);
 
-  init();
+  showDate(); setQuote();
+  const today = getTodayKey();
+  fillRecord(today); refreshStats(); refreshHistory(today);
 </script>
 </body>
 </html>
