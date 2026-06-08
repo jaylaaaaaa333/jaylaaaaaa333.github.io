@@ -3,257 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>佳伊的小小记录 🦊</title>
+<title>佳伊的小小记录</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;600;700&family=Noto+Sans+SC:wght@300;400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #faf8f5;
-    --card: #ffffff;
-    --text: #3d3d3d;
-    --text-light: #8a7a6a;
-    --text-lighter: #b8a898;
-    --accent: #b8856c;
-    --accent-light: #d4b8a4;
-    --border: #f0ebe6;
-    --highlight: #f7f0eb;
+    --bg: #1a1a1a;
+    --bg-card: #222222;
+    --text: #d4d0c8;
+    --text-dim: #8a8578;
+    --text-muted: #5e5a50;
+    --accent: #c4a882;
+    --accent-dim: #8a7458;
+    --border: #2c2c2c;
+    --highlight: #2a2722;
+    --warm: #3a3228;
   }
 
   body {
-    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    font-family: 'Noto Serif SC', 'EB Garamond', Georgia, serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.8;
+    line-height: 1.9;
     min-height: 100vh;
+    font-weight: 300;
   }
 
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 3px; }
+  /* ===== Film Grain ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
 
-  /* ===== Desktop Layout ===== */
-  @media (min-width: 769px) {
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 2px; }
+
+  /* ===== Desktop Grid ===== */
+  @media (min-width: 820px) {
     .app-layout {
       display: grid;
-      grid-template-columns: 280px 1fr 320px;
+      grid-template-columns: 240px 1fr 280px;
       min-height: 100vh;
       max-width: 1400px;
       margin: 0 auto;
     }
-
-    .sidebar {
-      border-right: 1px solid var(--border);
-      padding: 40px 24px;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-    }
-
-    .main-content {
-      padding: 40px 32px;
-      max-width: 680px;
-    }
-
-    .side-panel {
-      border-left: 1px solid var(--border);
-      padding: 40px 24px;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-    }
+    .sidebar { border-right: 1px solid var(--border); }
+    .side-panel { border-left: 1px solid var(--border); }
   }
-
-  /* ===== Mobile ===== */
-  @media (max-width: 768px) {
-    .app-layout {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar {
-      padding: 30px 20px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .main-content {
-      padding: 20px;
-    }
-
-    .side-panel {
-      padding: 20px;
-      border-top: 1px solid var(--border);
-    }
+  @media (max-width: 819px) {
+    .app-layout { display: flex; flex-direction: column; }
+    .sidebar { border-bottom: 1px solid var(--border); }
+    .side-panel { border-top: 1px solid var(--border); }
   }
 
   /* ===== Sidebar ===== */
-  .site-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 1.3rem;
-    font-weight: 300;
-    color: var(--text);
-    letter-spacing: 3px;
-    margin-bottom: 4px;
+  .sidebar {
+    padding: 48px 24px 32px;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
   }
-  .site-sub {
+  @media (max-width: 819px) {
+    .sidebar { position: static; height: auto; padding: 32px 20px 20px; }
+  }
+
+  .site-masthead {
+    text-align: center;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .site-masthead .emblem {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+  .site-masthead h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: var(--text);
+  }
+  .site-masthead .subtitle {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .nav-stack {
+    margin-top: 28px;
+    list-style: none;
+  }
+  .nav-stack li {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 2px solid transparent;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+  }
+  .nav-stack li:hover {
+    color: var(--accent);
+    background: var(--highlight);
+  }
+  .nav-stack li.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--highlight);
+  }
+
+  .sidebar-stats {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .sidebar-stats .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 4px;
     font-size: 0.75rem;
-    color: var(--text-lighter);
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--text-dim);
     letter-spacing: 1px;
   }
-  .fox-icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
-
-  .nav-section {
-    margin-top: 32px;
-  }
-  .nav-label {
-    font-size: 0.7rem;
-    color: var(--text-lighter);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    border-radius: 8px;
+  .sidebar-stats .stat-row strong {
+    font-family: 'Noto Serif SC', serif;
+    color: var(--accent);
+    font-weight: 400;
     font-size: 0.9rem;
-    color: var(--text-light);
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-bottom: 2px;
-  }
-  .nav-item:hover { background: var(--highlight); }
-  .nav-item.active {
-    background: var(--highlight);
-    color: var(--accent);
-    font-weight: 500;
   }
 
-  /* ===== Stats ===== */
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 16px;
+  /* ===== Main ===== */
+  .main-content {
+    padding: 48px 36px 60px;
+    max-width: 620px;
+    margin: 0 auto;
+    width: 100%;
   }
-  .stat-card {
-    background: var(--highlight);
-    border-radius: 12px;
-    padding: 14px;
-    text-align: center;
-  }
-  .stat-card .num {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .stat-card .lbl {
-    font-size: 0.7rem;
-    color: var(--text-light);
-    margin-top: 2px;
+  @media (max-width: 819px) {
+    .main-content { padding: 28px 20px 40px; }
   }
 
-  /* ===== Card ===== */
-  .card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.02);
-    border: 1px solid var(--border);
-  }
-  .card-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* ===== Date Header ===== */
+  /* ===== Date ===== */
   .date-header {
     text-align: center;
-    padding: 10px 0 20px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
   }
   .date-header .day {
     font-family: 'Noto Serif SC', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-weight: 200;
+    letter-spacing: 4px;
     color: var(--text);
   }
   .date-header .weekday {
-    font-size: 0.8rem;
-    color: var(--text-lighter);
-    margin-top: 2px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    margin-top: 6px;
+    font-weight: 300;
   }
 
-  /* ===== Journal Entry ===== */
+  /* ===== Section ===== */
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-label {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  /* ===== Mood ===== */
+  .mood-strip {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .mood-btn {
+    font-size: 1.2rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 42px; height: 42px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.4;
+    line-height: 1;
+  }
+  .mood-btn:hover { opacity: 0.7; border-color: var(--accent-dim); }
+  .mood-btn.selected {
+    opacity: 1;
+    border-color: var(--accent);
+    background: var(--warm);
+    box-shadow: 0 0 20px rgba(196,168,130,0.08);
+  }
+
+  /* ===== Journal ===== */
+  .journal-area {
+    position: relative;
+  }
+  .journal-area::before {
+    content: '\201C';
+    position: absolute;
+    top: -8px; left: -4px;
+    font-size: 3rem;
+    color: var(--accent-dim);
+    opacity: 0.3;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
   .journal-textarea {
     width: 100%;
     border: none;
     outline: none;
     resize: vertical;
-    min-height: 120px;
-    font-family: 'Noto Sans SC', sans-serif;
+    min-height: 130px;
+    font-family: 'Noto Serif SC', Georgia, serif;
     font-size: 0.9rem;
-    line-height: 1.9;
+    line-height: 2;
     color: var(--text);
     background: transparent;
-    padding: 4px 0;
+    padding: 4px 0 4px 16px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
   }
   .journal-textarea::placeholder {
-    color: var(--text-lighter);
+    color: var(--text-muted);
     font-style: italic;
+    font-size: 0.85rem;
+    opacity: 0.6;
   }
 
-  /* ===== Mood Selector ===== */
-  .mood-row {
+  /* ===== Meal ===== */
+  .meal-entry {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .mood-btn {
-    font-size: 1.4rem;
-    background: var(--highlight);
-    border: 2px solid transparent;
-    border-radius: 12px;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    opacity: 0.5;
-  }
-  .mood-btn:hover { opacity: 0.8; transform: scale(1.05); }
-  .mood-btn.selected {
-    opacity: 1;
-    border-color: var(--accent-light);
-    background: #fff;
-  }
-
-  /* ===== Meal Input ===== */
-  .meal-row {
-    display: flex;
-    gap: 10px;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--border);
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
   }
-  .meal-row:last-child { border-bottom: none; }
-  .meal-label {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    min-width: 36px;
+  .meal-entry:last-of-type { border-bottom: none; }
+  .meal-tag {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    min-width: 28px;
+    font-weight: 300;
   }
   .meal-input {
     flex: 1;
@@ -263,157 +282,272 @@
     color: var(--text);
     background: transparent;
     padding: 4px 0;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Noto Serif SC', Georgia, serif;
+    font-weight: 300;
   }
-  .meal-input::placeholder { color: var(--text-lighter); }
+  .meal-input::placeholder { color: var(--text-muted); opacity: 0.5; font-style: italic; }
   .meal-cal {
-    width: 70px;
+    width: 65px;
     text-align: right;
     border: none;
     outline: none;
-    font-size: 0.85rem;
-    color: var(--text-light);
+    font-size: 0.8rem;
+    color: var(--text-dim);
     background: transparent;
     font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
   }
-  .meal-cal::placeholder { color: var(--text-lighter); }
-
+  .meal-cal::placeholder { color: var(--text-muted); opacity: 0.4; }
   .meal-total {
     text-align: right;
-    padding-top: 10px;
-    font-size: 0.85rem;
-    color: var(--text-light);
+    padding-top: 12px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
   }
   .meal-total strong {
     font-family: 'Noto Serif SC', serif;
-    font-size: 1.1rem;
+    font-weight: 300;
     color: var(--accent);
+    font-size: 1rem;
   }
 
   /* ===== Workout ===== */
-  .workout-check {
+  .workout-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+  }
+  .workout-item input[type="checkbox"] {
+    appearance: none;
+    width: 14px; height: 14px;
+    border: 1px solid var(--text-muted);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .workout-item input[type="checkbox"]:checked {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(196,168,130,0.15);
+  }
+  .workout-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 6px; height: 6px;
+    background: var(--bg);
+    border-radius: 50%;
+  }
+  .workout-item label {
+    font-size: 0.85rem;
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  .workout-other {
+    margin-top: 6px;
+    border: none; outline: none;
+    background: transparent;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    width: 100%;
+    padding: 6px 0;
+    font-weight: 300;
+  }
+  .workout-other::placeholder { color: var(--text-muted); font-style: italic; opacity: 0.5; }
+
+  /* ===== Weight ===== */
+  .weight-area {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 6px 0;
   }
-  .workout-check input[type="checkbox"] {
-    width: 16px; height: 16px;
-    accent-color: var(--accent);
+  .weight-input {
+    width: 80px;
+    border: none; outline: none;
+    background: transparent;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    font-weight: 300;
+    transition: border-color 0.3s;
   }
-  .workout-check label {
-    font-size: 0.85rem;
-    color: var(--text);
+  .weight-input:focus { border-color: var(--accent-dim); }
+  .weight-unit {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+  }
+  .weight-diff {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-left: 8px;
+    font-style: italic;
+    font-weight: 300;
   }
 
-  /* ===== Save Button ===== */
-  .save-area {
+  /* ===== Save ===== */
+  .save-bar {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
   }
-  .btn-primary {
+  .btn-save {
     flex: 1;
-    padding: 14px;
+    padding: 14px 24px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    border-radius: 0;
+    font-size: 0.75rem;
+    font-family: 'Noto Sans SC', sans-serif;
+    cursor: pointer;
+    transition: all 0.4s;
+    letter-spacing: 4px;
+    font-weight: 300;
+  }
+  .btn-save:hover {
     background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-family: 'Noto Sans SC', sans-serif;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    letter-spacing: 1px;
+    color: var(--bg);
+    border-color: var(--accent);
   }
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-primary:active { opacity: 0.7; }
-
-  .btn-secondary {
+  .btn-clear {
     padding: 14px 20px;
-    background: var(--highlight);
-    color: var(--text-light);
+    background: transparent;
+    color: var(--text-muted);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 0.85rem;
+    border-radius: 0;
+    font-size: 0.7rem;
     font-family: 'Noto Sans SC', sans-serif;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s;
+    letter-spacing: 2px;
+    font-weight: 300;
   }
-  .btn-secondary:hover { background: var(--border); }
+  .btn-clear:hover { color: var(--text-dim); border-color: var(--text-muted); }
 
-  /* ===== History Side Panel ===== */
-  .history-list {
-    margin-top: 12px;
+  /* ===== Side Panel ===== */
+  .side-panel {
+    padding: 48px 20px 32px;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
   }
+  @media (max-width: 819px) {
+    .side-panel { position: static; height: auto; padding: 24px 20px 32px; }
+  }
+
+  .panel-header {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 300;
+  }
+
+  .history-list {
+    margin-top: 8px;
+  }
+  .history-empty {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+  .history-empty .icon { font-size: 2rem; opacity: 0.3; margin-bottom: 12px; }
+
   .history-item {
-    padding: 12px;
-    border-radius: 10px;
+    padding: 14px 12px;
     cursor: pointer;
-    transition: background 0.2s;
-    margin-bottom: 4px;
-    border-left: 3px solid transparent;
+    transition: all 0.3s;
+    margin-bottom: 2px;
+    border-left: 2px solid transparent;
   }
   .history-item:hover { background: var(--highlight); }
   .history-item.active {
     background: var(--highlight);
     border-left-color: var(--accent);
   }
-  .history-item .date {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .history-item .preview {
+  .history-item .h-date {
+    font-family: 'Noto Serif SC', serif;
     font-size: 0.75rem;
-    color: var(--text-lighter);
+    color: var(--text);
+    letter-spacing: 1px;
+    font-weight: 300;
+  }
+  .history-item .h-preview {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.7rem;
+    color: var(--text-muted);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-top: 2px;
-  }
-  .history-item .mood-small {
-    font-size: 0.8rem;
-    margin-right: 4px;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 30px 0;
-    color: var(--text-lighter);
-    font-size: 0.85rem;
-  }
-  .empty-state .big-icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
+    margin-top: 4px;
+    font-style: italic;
+    font-weight: 300;
   }
 
   /* ===== Toast ===== */
   .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 40px;
     left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--text);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 0.85rem;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--highlight);
+    color: var(--accent);
+    padding: 12px 28px;
+    font-size: 0.75rem;
+    font-family: 'Noto Sans SC', sans-serif;
+    letter-spacing: 2px;
     opacity: 0;
-    transition: all 0.4s;
+    transition: all 0.5s ease;
     z-index: 1000;
     pointer-events: none;
+    border: 1px solid var(--border);
+    font-weight: 300;
   }
   .toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
 
-  /* ===== Responsive fixes ===== */
-  @media (max-width: 400px) {
-    .card { padding: 18px; }
-    .stat-grid { gap: 6px; }
-    .stat-card { padding: 10px; }
+  /* ===== Cinematic Quote Rotation ===== */
+  .cinema-bar {
+    text-align: center;
+    padding: 8px 0;
+    margin-bottom: 24px;
   }
+  .cinema-bar .quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-style: italic;
+    letter-spacing: 2px;
+    font-weight: 300;
+    transition: opacity 0.6s;
+    opacity: 0.5;
+  }
+
+  /* Selection color */
+  ::selection { background: var(--accent-dim); color: var(--bg); }
 </style>
 </head>
 <body>
@@ -422,136 +556,140 @@
 
   <!-- ===== Sidebar ===== -->
   <div class="sidebar">
-    <div class="fox-icon">🦊</div>
-    <div class="site-title">佳伊的小小记录</div>
-    <div class="site-sub">每天，都值得被记住</div>
-
-    <div class="nav-section">
-      <div class="nav-label">导航</div>
-      <div class="nav-item active" data-view="daily">
-        <span>📝</span> 今日记录
-      </div>
-      <div class="nav-item" data-view="weight">
-        <span>📏</span> 体重管理
-      </div>
+    <div class="site-masthead">
+      <div class="emblem">🦊</div>
+      <h1>佳伊的小小记录</h1>
+      <div class="subtitle">cine-diary</div>
     </div>
 
-    <div class="stat-grid">
-      <div class="stat-card">
-        <div class="num" id="statDays">0</div>
-        <div class="lbl">已记录天数</div>
+    <ul class="nav-stack">
+      <li class="active">📝 今日</li>
+      <li>📏 体重</li>
+    </ul>
+
+    <div class="sidebar-stats">
+      <div class="stat-row">
+        <span>已记录</span>
+        <strong id="statDays">0</strong>
+        <span>天</span>
       </div>
-      <div class="stat-card">
-        <div class="num" id="statStreak">0</div>
-        <div class="lbl">连续天数</div>
+      <div class="stat-row">
+        <span>连续</span>
+        <strong id="statStreak">0</strong>
+        <span>天</span>
+      </div>
+      <div class="stat-row">
+        <span>当前体重</span>
+        <strong id="statLatest">—</strong>
+        <span>kg</span>
       </div>
     </div>
   </div>
 
-  <!-- ===== Main Content ===== -->
-  <div class="main-content" id="mainContent">
+  <!-- ===== Main ===== -->
+  <div class="main-content">
 
-    <!-- Daily View -->
-    <div id="viewDaily">
-      <div class="date-header">
-        <div class="day" id="todayDate"></div>
-        <div class="weekday" id="todayWeekday"></div>
-      </div>
+    <div class="date-header">
+      <div class="day" id="todayDate"></div>
+      <div class="weekday" id="todayWeekday"></div>
 
-      <!-- Mood -->
-      <div class="card">
-        <div class="card-title"><span>💭</span> 今天心情</div>
-        <div class="mood-row" id="moodSelector">
-          <button class="mood-btn" data-mood="😊">😊</button>
-          <button class="mood-btn" data-mood="😌">😌</button>
-          <button class="mood-btn" data-mood="😐">😐</button>
-          <button class="mood-btn" data-mood="😔">😔</button>
-          <button class="mood-btn" data-mood="😤">😤</button>
-          <button class="mood-btn" data-mood="🥰">🥰</button>
-          <button class="mood-btn" data-mood="🦊">🦊</button>
-        </div>
-      </div>
+    </div>
 
-      <!-- Journal -->
-      <div class="card">
-        <div class="card-title"><span>✍️</span> 今天的记录</div>
-        <textarea class="journal-textarea" id="journalEntry" placeholder="写点什么吧……今天过得怎么样？"></textarea>
-      </div>
+    <!-- Cinema Quote -->
+    <div class="cinema-bar">
+      <div class="quote" id="cinemaQuote">「电影不是为了让时间不朽，而是为了让时间可见。」</div>
+    </div>
 
-      <!-- Meals -->
-      <div class="card">
-        <div class="card-title"><span>🥣</span> 今日饮食</div>
-        <div class="meal-row">
-          <span class="meal-label">🌅 早</span>
-          <input class="meal-input" id="mealBreakfast" placeholder="吃了什么？">
-          <input class="meal-cal" id="calBreakfast" placeholder="kcal" type="number">
-        </div>
-        <div class="meal-row">
-          <span class="meal-label">🌞 午</span>
-          <input class="meal-input" id="mealLunch" placeholder="吃了什么？">
-          <input class="meal-cal" id="calLunch" placeholder="kcal" type="number">
-        </div>
-        <div class="meal-row">
-          <span class="meal-label">🌆 晚</span>
-          <input class="meal-input" id="mealDinner" placeholder="吃了什么？">
-          <input class="meal-cal" id="calDinner" placeholder="kcal" type="number">
-        </div>
-        <div class="meal-row">
-          <span class="meal-label">🍿 加</span>
-          <input class="meal-input" id="mealSnack" placeholder="吃了什么？">
-          <input class="meal-cal" id="calSnack" placeholder="kcal" type="number">
-        </div>
-        <div class="meal-total">
-          今日总计 <strong id="totalCal">0</strong> kcal
-        </div>
-      </div>
-
-      <!-- Workout -->
-      <div class="card">
-        <div class="card-title"><span>💪</span> 今日运动</div>
-        <div class="workout-check">
-          <input type="checkbox" id="wkGlute">
-          <label for="wkGlute">🍑 练臀</label>
-        </div>
-        <div class="workout-check">
-          <input type="checkbox" id="wkBack">
-          <label for="wkBack">🔙 练背</label>
-        </div>
-        <div class="workout-check">
-          <input type="checkbox" id="wkCardio">
-          <label for="wkCardio">🏃 爬坡 30min</label>
-        </div>
-        <div class="workout-check" style="margin-top:4px;">
-          <input class="meal-input" id="wkOther" placeholder="其他运动……" style="flex:1;">
-        </div>
-      </div>
-
-      <!-- Weight -->
-      <div class="card">
-        <div class="card-title"><span>📏</span> 今日体重</div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <input type="number" id="todayWeight" step="0.1" placeholder="—" style="width:80px;border:none;outline:none;font-size:1.2rem;font-family:'Noto Serif SC',serif;color:var(--accent);background:var(--highlight);padding:8px 12px;border-radius:10px;text-align:center;">
-          <span style="color:var(--text-light);">kg</span>
-          <span id="weightDiff" style="font-size:0.8rem;color:var(--text-lighter);margin-left:8px;"></span>
-        </div>
-      </div>
-
-      <!-- Save -->
-      <div class="save-area">
-        <button class="btn-primary" id="btnSave">🦊 记录今天</button>
-        <button class="btn-secondary" id="btnClear">清空</button>
+    <!-- Mood -->
+    <div class="section">
+      <div class="section-label">· 今日情绪</div>
+      <div class="mood-strip" id="moodSelector">
+        <button class="mood-btn" data-mood="😊">😊</button>
+        <button class="mood-btn" data-mood="😌">😌</button>
+        <button class="mood-btn" data-mood="😐">😐</button>
+        <button class="mood-btn" data-mood="😔">😔</button>
+        <button class="mood-btn" data-mood="😤">😤</button>
+        <button class="mood-btn" data-mood="🥰">🥰</button>
+        <button class="mood-btn" data-mood="🦊">🦊</button>
       </div>
     </div>
 
+    <!-- Journal -->
+    <div class="section">
+      <div class="section-label">· 随笔</div>
+      <div class="journal-area">
+        <textarea class="journal-textarea" id="journalEntry" placeholder="写点什么吧……"></textarea>
+      </div>
+    </div>
+
+    <!-- Meals -->
+    <div class="section">
+      <div class="section-label">· 今日食单</div>
+      <div class="meal-entry">
+        <span class="meal-tag">朝</span>
+        <input class="meal-input" id="mealBreakfast" placeholder="吃了什么">
+        <input class="meal-cal" id="calBreakfast" placeholder="kcal" type="number">
+      </div>
+      <div class="meal-entry">
+        <span class="meal-tag">昼</span>
+        <input class="meal-input" id="mealLunch" placeholder="吃了什么">
+        <input class="meal-cal" id="calLunch" placeholder="kcal" type="number">
+      </div>
+      <div class="meal-entry">
+        <span class="meal-tag">暮</span>
+        <input class="meal-input" id="mealDinner" placeholder="吃了什么">
+        <input class="meal-cal" id="calDinner" placeholder="kcal" type="number">
+      </div>
+      <div class="meal-entry">
+        <span class="meal-tag">间</span>
+        <input class="meal-input" id="mealSnack" placeholder="吃了什么">
+        <input class="meal-cal" id="calSnack" placeholder="kcal" type="number">
+      </div>
+      <div class="meal-total">今日摄入 · <strong id="totalCal">0</strong> kcal</div>
+    </div>
+
+    <!-- Workout -->
+    <div class="section">
+      <div class="section-label">· 身体笔记</div>
+      <div class="workout-item">
+        <input type="checkbox" id="wkGlute">
+        <label for="wkGlute">臀</label>
+      </div>
+      <div class="workout-item">
+        <input type="checkbox" id="wkBack">
+        <label for="wkBack">背</label>
+      </div>
+      <div class="workout-item">
+        <input type="checkbox" id="wkCardio">
+        <label for="wkCardio">爬坡 30min</label>
+      </div>
+      <input class="workout-other" id="wkOther" placeholder="其他运动……">
+    </div>
+
+    <!-- Weight -->
+    <div class="section">
+      <div class="section-label">· 体重</div>
+      <div class="weight-area">
+        <input class="weight-input" id="todayWeight" type="number" step="0.1" placeholder="—">
+        <span class="weight-unit">kg</span>
+        <span class="weight-diff" id="weightDiff"></span>
+      </div>
+    </div>
+
+    <!-- Save -->
+    <div class="save-bar">
+      <button class="btn-save" id="btnSave">保 存</button>
+      <button class="btn-clear" id="btnClear">清空</button>
+    </div>
   </div>
 
-  <!-- ===== History Panel ===== -->
+  <!-- ===== History ===== -->
   <div class="side-panel">
-    <div class="nav-label">📖 过往记录</div>
+    <div class="panel-header">· 过往</div>
     <div class="history-list" id="historyList">
-      <div class="empty-state">
-        <div class="big-icon">📝</div>
-        还没有记录<br>今天开始写第一篇吧 🦊
+      <div class="history-empty">
+        <div class="icon">🎞️</div>
+        还没有记录<br>今天开始写第一篇吧
       </div>
     </div>
   </div>
@@ -561,56 +699,121 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ===== Data Management =====
-  const STORAGE_KEY = 'jiaoyi_journal';
+  const STORAGE_KEY = '**';
+  const QUOTES = [
+    '「电影不是为了让时间不朽，而是为了让时间可见。」',
+    '「我们看电影，是为了遇见另一种生活。」',
+    '「故事是生活的比喻。」',
+    '「每一帧都是时间的切片。」',
+    '「电影是最接近梦的语言。」',
+    '「好的电影让你在别人的故事里，看见自己。」',
+    '「日子是写在水上的字。」',
+    '「把每一天都过成一个好故事。」',
+    '「缓慢也是一种速度。」',
+    '「记忆就像电影胶片，需要被冲洗才能显现。」',
+    '「有些画面会一直留在心里。」',
+    '「安静地记录，就是对抗遗忘的方式。」'
+  ];
 
   function loadAll() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-    } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch { return {}; }
   }
-
-  function saveAll(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
+  function saveAll(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
 
   function getTodayKey() {
     const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    return d.getFullYear() + '-' +
+      String(d.getMonth()+1).padStart(2,'0') + '-' +
+      String(d.getDate()).padStart(2,'0');
   }
 
-  function formatDateCN(key) {
+  function fmtDateCN(key) {
     const [y,m,d] = key.split('-');
-    return `${y}年${parseInt(m)}月${parseInt(d)}日`;
+    const cn = ['〇','一','二','三','四','五','六','七','八','九','十','十一','十二'];
+    return y + '年' + cn[parseInt(m)] + '月' + cn[parseInt(d)] + '日';
   }
-
-  function getWeekday(key) {
+  function fmtWeekday(key) {
     const [y,m,d] = key.split('-');
     const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
     return days[new Date(y,m-1,d).getDay()];
   }
 
-  // ===== Today Setup =====
-  function setupToday() {
-    const today = getTodayKey();
-    const d = new Date();
-    const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-    document.getElementById('todayDate').textContent = formatDateCN(today);
-    document.getElementById('todayWeekday').textContent = getWeekday(today);
+  function showDate() {
+    const k = getTodayKey();
+    document.getElementById('todayDate').textContent = fmtDateCN(k);
+    document.getElementById('todayWeekday').textContent = fmtWeekday(k);
   }
 
-  // ===== Load / Save Record =====
-  function loadRecord(key) {
+  // Random quote
+  function setQuote() {
+    const el = document.getElementById('cinemaQuote');
+    let idx = Math.floor(Math.random() * QUOTES.length);
+    // Use date to pick deterministic quote of the day
+    const today = getTodayKey();
+    const dayNum = today.split('-').reduce((a,b) => a + parseInt(b), 0);
+    idx = dayNum % QUOTES.length;
+    el.textContent = QUOTES[idx];
+  }
+
+  // Fill record
+  function fillRecord(key) {
     const all = loadAll();
-    return all[key] || null;
+    const r = all[key];
+
+    if (!r) {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('journalEntry').value = '';
+      ['Breakfast','Lunch','Dinner','Snack'].forEach(m => {
+        document.getElementById('meal'+m).value = '';
+        document.getElementById('cal'+m).value = '';
+      });
+      document.getElementById('wkGlute').checked = false;
+      document.getElementById('wkBack').checked = false;
+      document.getElementById('wkCardio').checked = false;
+      document.getElementById('wkOther').value = '';
+      document.getElementById('todayWeight').value = '';
+      document.getElementById('weightDiff').textContent = '';
+      calcCal();
+      return;
+    }
+
+    document.querySelectorAll('.mood-btn').forEach(b =>
+      b.classList.toggle('selected', b.dataset.mood === r.mood));
+
+    document.getElementById('journalEntry').value = r.journal || '';
+
+    const meals = r.meals || {};
+    document.getElementById('mealBreakfast').value = meals.breakfast || '';
+    document.getElementById('calBreakfast').value = meals.calB || '';
+    document.getElementById('mealLunch').value = meals.lunch || '';
+    document.getElementById('calLunch').value = meals.calL || '';
+    document.getElementById('mealDinner').value = meals.dinner || '';
+    document.getElementById('calDinner').value = meals.calD || '';
+    document.getElementById('mealSnack').value = meals.snack || '';
+    document.getElementById('calSnack').value = meals.calS || '';
+
+    const w = r.workout || {};
+    document.getElementById('wkGlute').checked = w.glute || false;
+    document.getElementById('wkBack').checked = w.back || false;
+    document.getElementById('wkCardio').checked = w.cardio || false;
+    document.getElementById('wkOther').value = w.other || '';
+
+    if (r.weight) {
+      document.getElementById('todayWeight').value = r.weight;
+      updWeightDiff(key);
+    } else {
+      document.getElementById('todayWeight').value = '';
+      document.getElementById('weightDiff').textContent = '';
+    }
+    calcCal();
   }
 
   function saveCurrent() {
-    const today = getTodayKey();
+    const key = getTodayKey();
     const all = loadAll();
-
     const mood = document.querySelector('.mood-btn.selected');
-    const data = {
+    all[key] = {
       mood: mood ? mood.dataset.mood : '',
       journal: document.getElementById('journalEntry').value,
       meals: {
@@ -632,229 +835,134 @@
       weight: parseFloat(document.getElementById('todayWeight').value) || null,
       updatedAt: new Date().toISOString()
     };
-
-    all[today] = data;
     saveAll(all);
     refreshStats();
-    refreshHistory(today);
-    showToast('🦊 已保存！');
+    refreshHistory(key);
+    toast('已保存');
   }
 
-  function fillRecord(key) {
-    const record = loadRecord(key);
-    if (!record) {
-      // Reset form
-      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-      document.getElementById('journalEntry').value = '';
-      document.getElementById('mealBreakfast').value = '';
-      document.getElementById('calBreakfast').value = '';
-      document.getElementById('mealLunch').value = '';
-      document.getElementById('calLunch').value = '';
-      document.getElementById('mealDinner').value = '';
-      document.getElementById('calDinner').value = '';
-      document.getElementById('mealSnack').value = '';
-      document.getElementById('calSnack').value = '';
-      document.getElementById('wkGlute').checked = false;
-      document.getElementById('wkBack').checked = false;
-      document.getElementById('wkCardio').checked = false;
-      document.getElementById('wkOther').value = '';
-      document.getElementById('todayWeight').value = '';
-      document.getElementById('weightDiff').textContent = '';
-      updateCalories();
-      return;
-    }
-
-    // Mood
-    document.querySelectorAll('.mood-btn').forEach(b => {
-      b.classList.toggle('selected', b.dataset.mood === record.mood);
-    });
-
-    // Journal
-    document.getElementById('journalEntry').value = record.journal || '';
-
-    // Meals
-    document.getElementById('mealBreakfast').value = record.meals?.breakfast || '';
-    document.getElementById('calBreakfast').value = record.meals?.calB || '';
-    document.getElementById('mealLunch').value = record.meals?.lunch || '';
-    document.getElementById('calLunch').value = record.meals?.calL || '';
-    document.getElementById('mealDinner').value = record.meals?.dinner || '';
-    document.getElementById('calDinner').value = record.meals?.calD || '';
-    document.getElementById('mealSnack').value = record.meals?.snack || '';
-    document.getElementById('calSnack').value = record.meals?.calS || '';
-
-    // Workout
-    document.getElementById('wkGlute').checked = record.workout?.glute || false;
-    document.getElementById('wkBack').checked = record.workout?.back || false;
-    document.getElementById('wkCardio').checked = record.workout?.cardio || false;
-    document.getElementById('wkOther').value = record.workout?.other || '';
-
-    // Weight
-    if (record.weight) {
-      document.getElementById('todayWeight').value = record.weight;
-      updateWeightDiff(key);
-    } else {
-      document.getElementById('todayWeight').value = '';
-      document.getElementById('weightDiff').textContent = '';
-    }
-
-    updateCalories();
+  function calcCal() {
+    const c = [1,2,3,4].map(i =>
+      parseFloat(document.getElementById('cal'+['Breakfast','Lunch','Dinner','Snack'][i-1]).value) || 0);
+    document.getElementById('totalCal').textContent = c.reduce((a,b)=>a+b,0);
   }
 
-  // ===== Save on form change =====
-  let autoSaveTimer = null;
-  function autoSave() {
-    clearTimeout(autoSaveTimer);
-    autoSaveTimer = setTimeout(() => {
-      saveCurrent();
-    }, 2000);
-  }
-
-  // ===== Calories =====
-  function updateCalories() {
-    const c1 = parseFloat(document.getElementById('calBreakfast').value) || 0;
-    const c2 = parseFloat(document.getElementById('calLunch').value) || 0;
-    const c3 = parseFloat(document.getElementById('calDinner').value) || 0;
-    const c4 = parseFloat(document.getElementById('calSnack').value) || 0;
-    const total = c1 + c2 + c3 + c4;
-    document.getElementById('totalCal').textContent = total;
-  }
-
-  // ===== Weight Difference =====
-  function updateWeightDiff(key) {
-    const all = loadAll();
-    const current = parseFloat(document.getElementById('todayWeight').value);
-    if (!current) { document.getElementById('weightDiff').textContent = ''; return; }
-
+  function updWeightDiff(key) {
+    const w = parseFloat(document.getElementById('todayWeight').value);
+    if (!w) { document.getElementById('weightDiff').textContent = ''; return; }
     const goal = 52.5;
-    const diff = current - goal;
-    const diffText = diff > 0 ? `还差 ${diff.toFixed(1)} kg 到目标` : diff === 0 ? '🎉 目标达成！' : `已超目标 ${Math.abs(diff).toFixed(1)} kg 🎉`;
-    document.getElementById('weightDiff').textContent = diffText;
+    const d = w - goal;
+    document.getElementById('weightDiff').textContent =
+      d > 0 ? `— 还差 ${d.toFixed(1)} kg` : d === 0 ? '— 🎉 目标达成' : '— 已达成目标 🎉';
   }
 
-  // ===== History =====
   function refreshHistory(activeKey) {
     const all = loadAll();
     const keys = Object.keys(all).sort().reverse();
-    const container = document.getElementById('historyList');
-
-    if (keys.length === 0) {
-      container.innerHTML = `<div class="empty-state"><div class="big-icon">📝</div>还没有记录<br>今天开始写第一篇吧 🦊</div>`;
+    const el = document.getElementById('historyList');
+    if (!keys.length) {
+      el.innerHTML = '<div class="history-empty"><div class="icon">🎞️</div>还没有记录<br>今天开始写第一篇吧</div>';
       return;
     }
-
-    container.innerHTML = keys.map(key => {
-      const record = all[key];
-      const preview = record.journal
-        ? record.journal.substring(0, 30) + (record.journal.length > 30 ? '…' : '')
-        : '(空)';
-      const moodEmoji = record.mood || '📝';
-      const isActive = key === activeKey ? 'active' : '';
-      return `<div class="history-item ${isActive}" data-key="${key}">
-        <div class="date"><span class="mood-small">${moodEmoji}</span> ${formatDateCN(key)} ${getWeekday(key)}</div>
-        <div class="preview">${preview}</div>
+    el.innerHTML = keys.map(k => {
+      const r = all[k];
+      const pv = r.journal ? r.journal.slice(0,28) + (r.journal.length > 28 ? '…' : '') : '(空)';
+      const act = k === activeKey ? ' active' : '';
+      return `<div class="history-item${act}" data-key="${k}">
+        <div class="h-date">${r.mood||'📝'} ${fmtDateCN(k)}</div>
+        <div class="h-preview">${pv}</div>
       </div>`;
     }).join('');
-
-    // Click handler
     document.querySelectorAll('.history-item').forEach(el => {
       el.addEventListener('click', () => {
-        const key = el.dataset.key;
         document.querySelectorAll('.history-item').forEach(h => h.classList.remove('active'));
         el.classList.add('active');
-        fillRecord(key);
+        fillRecord(el.dataset.key);
       });
     });
   }
 
-  // ===== Stats =====
   function refreshStats() {
     const all = loadAll();
     const keys = Object.keys(all).sort();
     document.getElementById('statDays').textContent = keys.length;
 
-    // Calculate streak
     let streak = 0;
     const today = new Date();
     for (let i = 0; i < 365; i++) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-      if (all[key]) {
-        streak++;
-      } else {
-        break;
-      }
+      const d = new Date(today); d.setDate(d.getDate() - i);
+      const k = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+      if (all[k]) streak++; else break;
     }
     document.getElementById('statStreak').textContent = streak;
+
+    // latest weight
+    const weighted = keys.filter(k => all[k].weight).reverse();
+    document.getElementById('statLatest').textContent = weighted.length ? all[weighted[0]].weight : '—';
   }
 
-  // ===== Toast =====
-  function showToast(msg) {
+  function toast(msg) {
     const t = document.getElementById('toast');
-    t.textContent = msg;
+    t.textContent = '· ' + msg + ' ·';
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
+    setTimeout(() => t.classList.remove('show'), 2200);
   }
 
-  // ===== Clear =====
-  function clearForm() {
-    if (!confirm('确定要清空今天的记录吗？')) return;
-    const today = getTodayKey();
+  function clearToday() {
+    const key = getTodayKey();
     const all = loadAll();
-    delete all[today];
+    delete all[key];
     saveAll(all);
+    fillRecord(key);
+    refreshStats();
+    refreshHistory(key);
+    toast('已清空');
+  }
+
+  let autoTimer = null;
+  function autoSave() {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(saveCurrent, 2500);
+  }
+
+  // Init
+  function init() {
+    showDate();
+    setQuote();
+    const today = getTodayKey();
     fillRecord(today);
     refreshStats();
     refreshHistory(today);
-    showToast('已清空');
   }
 
-  // ===== Auto-save on input =====
-  document.querySelectorAll('input, textarea, .mood-btn').forEach(el => {
-    el.addEventListener('input', autoSave);
-    el.addEventListener('change', autoSave);
-  });
-
-  // ===== Mood selector =====
-  document.querySelectorAll('.mood-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
+  // Events
+  document.querySelectorAll('.mood-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.mood-btn').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
       autoSave();
     });
   });
 
-  // ===== Calorie auto-calc =====
-  document.querySelectorAll('.meal-cal').forEach(el => {
-    el.addEventListener('input', updateCalories);
+  ['journalEntry','mealBreakfast','calBreakfast','mealLunch','calLunch',
+   'mealDinner','calDinner','mealSnack','calSnack',
+   'wkGlute','wkBack','wkCardio','wkOther','todayWeight'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', autoSave);
+      el.addEventListener('change', autoSave);
+    }
   });
 
-  // ===== Weight auto-diff =====
-  document.getElementById('todayWeight').addEventListener('input', () => {
-    updateWeightDiff(getTodayKey());
-  });
+  document.querySelectorAll('.meal-cal').forEach(el => el.addEventListener('input', calcCal));
+  document.getElementById('todayWeight').addEventListener('input', function() { updWeightDiff(getTodayKey()); });
 
-  // ===== Navigation =====
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => {
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      item.classList.add('active');
-    });
-  });
+  document.getElementById('btnSave').addEventListener('click', () => { saveCurrent(); toast('已保存'); });
+  document.getElementById('btnClear').addEventListener('click', clearToday);
 
-  // ===== Init =====
-  function init() {
-    setupToday();
-    const today = getTodayKey();
-    fillRecord(today);
-    refreshStats();
-    refreshHistory(today);
-  }
+  window.addEventListener('beforeunload', saveCurrent);
 
   init();
-
-  // Auto-save on page close
-  window.addEventListener('beforeunload', saveCurrent);
 </script>
 </body>
 </html>
